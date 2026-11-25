@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Quest Zeal</title>
+
+    <!-- CSS only -->
+    
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/static/assets/css/studentDashboard.css" />
+  </head>
+
+  <body>
+    <main>
+      <nav class="navbar navbar-light ">
+
+        <div class="text col-12 col-md-9 px-4">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/logo.png" width="30" height="30" class="d-inline-block align-top">
+  
+            Quest Zeal
+  
+          </a>
+        </div>
+        <div class="col-6 col-md-3 d-flex flex-row">
+          <div class="Logout">
+            <a href="/logout" type="button" class="btn homepageButton">logout</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header">
+        <img src="/static/assets/images/pp.png" align="left" width="120" height="120" class="d-inline-block align-top">
+        <p class="prfname"> {{name}} </p>
+        <p>{{email}}
+        </p>
+        
+      </div>
+      <div class="maindashboard">
+          <div>
+            <div>
+              {% if tests%}
+              <div class="header2">
+                <p> Courses </p>
+              </div>
+              <br />
+              <table>
+                <thead>
+                  <th>CourseId</th>
+                  <th>CourseName</th>
+                  <th>TestName</th>
+                  <th>Test</th>
+                </thead>
+                {% for data in temp_tests %}
+                <tbody>
+                  <td>{{data[0]}}</td>
+                  <td>{{data[1]}}</td>
+                  <td>{{data[2]}}</td>
+                  {%if data[3] =="Objective" %} {%if data[4] == True %}
+                  <td> <a><button class="btn">Attended</button></a></td>
+                  {%else%}
+                  <td>
+                    <a href="/Objective_QA_Generation/{{data[0]}}"
+                      ><button class = "btn1">Objective</button></a
+                    >
+                  </td>
+                  {%endif%} {%else %} {%if data[4] == True%}
+                  <td><a><button class="btn">Attended</button></a></td>
+                  {%else%}
+                  <td>
+                    <a href="/Subjective_Questions/{{data[0]}}"
+                      ><button class="btn1">Subjective</button></a
+                    >
+                  </td>
+                  {%endif%} {%endif%}
+                </tbody>
+                {% endfor%}
+                {%endif%}
+              </table>
+            </div>
+          </div>
+          <div class="d-grid gap-2 d-sm-flex justify-content">
+            <div>
+              <br />
+              {%if students%}
+              <div class="header2">
+                <p> Performance </p>
+              </div>
+              <br />
+
+              <table class="table">
+                <thead>
+                  <th>Id</th>
+                  <th>CourseId</th>
+                  <th>CourseName</th>
+                  <th>TestName</th>
+                  <th>Type</th>
+                  <th>Score</th>
+                  <th> Del </th>
+                </thead>
+                <tbody>
+                  {% for data in students %}
+                  <tr>
+                    <td>{{data.id}}</td>
+                    <td>{{data.course_id}}</td>
+                    <td>{{data.course_name}}</td>
+                    <td>{{data.test_name}}</td>
+                    <td>{{data.type}}</td>
+                    <td>{{data.score}}</td>
+                    <td><a href="/dlt/{{data.id}}" type="button">Delete</a></td>
+                  </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+              <br />
+              {%endif%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
